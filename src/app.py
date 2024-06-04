@@ -69,12 +69,12 @@ def get_response(question,db,chat_history):
     SQL Query: <SQL>{query}</SQL>
     User question: {question}
     SQL Response: {response}
-    Now its your turn
-    AI response : """
+    """
   
     prompt = ChatPromptTemplate.from_template(template)
     
     llm = HuggingFaceEndpoint(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1", max_length=128, temperature=0.1,verbose = True)
+    #llm = Ollama(model="mistral")
 
     chain = (RunnablePassthrough.assign(query=sql_chain).assign(
         schema=lambda _: db.get_table_info(),
