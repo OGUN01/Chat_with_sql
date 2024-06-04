@@ -44,8 +44,8 @@ def get_sql_chain(db):
     
   prompt = ChatPromptTemplate.from_template(template)
   
-  llm = Ollama(model="llama3")
-  #llm = HuggingFaceEndpoint(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1", max_length=128, temperature=0.1,verbose = True)
+  #llm = Ollama(model="llama3")
+  llm = HuggingFaceEndpoint(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1", max_length=128, temperature=0.1,verbose = True)
   
   def get_schema(_):
     return db.get_table_info()
@@ -74,7 +74,7 @@ def get_response(question,db,chat_history):
   
     prompt = ChatPromptTemplate.from_template(template)
     
-    llm = Ollama(model="mistral")
+    llm = HuggingFaceEndpoint(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1", max_length=128, temperature=0.1,verbose = True)
 
     chain = (RunnablePassthrough.assign(query=sql_chain).assign(
         schema=lambda _: db.get_table_info(),
